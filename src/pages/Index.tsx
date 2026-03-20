@@ -355,7 +355,7 @@ export default function Index() {
       }}
     >
       {view.type === "hero" && <Hero onStart={() => transition({ type: "list" })} />}
-      {view.type === "list" && <StoriesList onSelect={(i) => transition({ type: "detail", index: i })} />}
+      {view.type === "list" && <StoriesList onSelect={(i) => transition({ type: "detail", index: i })} onBack={() => transition({ type: "hero" })} />}
       {view.type === "detail" && (
         <StoryDetail
           story={stories[view.index]}
