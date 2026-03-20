@@ -159,11 +159,21 @@ function StoryCard({ story, index, onClick }: { story: Story; index: number; onC
 }
 
 /* ─── STORIES LIST ─── */
-function StoriesList({ onSelect }: { onSelect: (i: number) => void }) {
+function StoriesList({ onSelect, onBack }: { onSelect: (i: number) => void; onBack: () => void }) {
   const titleReveal = useScrollReveal();
   return (
     <section className="min-h-screen px-4 py-16" style={{ background: "#f8f4ff" }}>
       <div className="mx-auto max-w-[680px]">
+        {/* Back to hero */}
+        <button
+          onClick={onBack}
+          className="mb-6 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 active:scale-[0.97]"
+          style={{ fontFamily: "'DM Sans', sans-serif", color: "#4361ee", background: "#eaefff" }}
+        >
+          <ArrowLeft size={16} />
+          Back
+        </button>
+
         <div
           ref={titleReveal.ref}
           className="mb-10 text-center transition-all duration-600"
@@ -345,7 +355,7 @@ export default function Index() {
       }}
     >
       {view.type === "hero" && <Hero onStart={() => transition({ type: "list" })} />}
-      {view.type === "list" && <StoriesList onSelect={(i) => transition({ type: "detail", index: i })} />}
+      {view.type === "list" && <StoriesList onSelect={(i) => transition({ type: "detail", index: i })} onBack={() => transition({ type: "hero" })} />}
       {view.type === "detail" && (
         <StoryDetail
           story={stories[view.index]}
